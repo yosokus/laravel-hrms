@@ -1,0 +1,29 @@
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.navbar-nav {
+    > li:last-child {
+        margin-right: 15px;
+    }
+
+    .dropdown-menu {
+        > li {
+            > a,
+            > form {
+                padding: 3px 20px;
+            }
+
+            > form {
+                > button {
+                    border: 0;
+                    padding: 0;
+                    background: none;
+                }
+            }
+        }
+    }
+
+}

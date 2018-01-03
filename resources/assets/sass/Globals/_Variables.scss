@@ -1,0 +1,72 @@
+
+// Body
+$body-bg: #F8F8F8;
+
+// Brands
+$brand-primary: #3097D1;
+$brand-info: #8EB4CB;
+$brand-success: #2AB27B;
+$brand-warning: #CBB956;
+$brand-danger: #BF5329;
+
+// Colors variables
+$color-white: #FFFFFF;
+$color-white-deep: #DDDDDD;
+$color-grey: #777777;
+$color-grey-deep: #555555;
+$color-grey-light: #EEEEEE;
+$color-black: #000000;
+$color-black-light: rgba(0, 0, 0, .175);
+$color-black-lighter: rgba(0, 0, 0, .15);
+$color-blue-deep: rgba(5, 7, 79, 0.99);
+
+// Borders
+$border-color: darken($body-bg, 10%);
+$list-group-border: $border-color;
+$navbar-default-border: $border-color;
+$panel-default-border: $border-color;
+$panel-inner-border: $border-color;
+
+// Typography
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$font-family-sans-serif: "Raleway", sans-serif;
+$font-size-base: 14px;
+$line-height-base: 1.6;
+$text-color: #636B6F;
+
+// Navbar
+$navbar-inverse-bg: #F8F8F8;
+$navbar-inverse-border: #E7E7E7;
+$navbar-inverse-link-hover-color: darken($navbar-inverse-bg, 25%);
+$navbar-inverse-link-hover-bg: darken($navbar-inverse-bg, 10%);
+$navbar-inverse-brand-color: #777777;
+$navbar-inverse-brand-hover-color: darken($navbar-inverse-brand-color, 25%);
+$navbar-inverse-brand-hover-bg: transparent;
+
+// Buttons
+$btn-default-color: $text-color;
+
+// Inputs
+$input-border: lighten($text-color, 40%);
+$input-border-focus: lighten($brand-primary, 25%);
+$input-color-placeholder: lighten($text-color, 30%);
+
+// Panels
+$panel-default-heading-bg: $color-white;
+
+$page-wrapper-bg: $color-white;
+$header-dropdown-bg: $color-white;
+$header-dropdown-border: $color-black_lighter;
+$header-dropdown-shadow: $color-black_light;
+
+$header-color: $color-white;
+$header-active-bg: darken($navbar-inverse-bg, 20%);
+$header-active-border: darken($header-active-bg, 5%);
+$header-active: $color-white;
+
+$sidebar-color: #333333;
+$sidebar-border: #EFEFEF;
+$sidebar-bg: #F5F5F5;
+
+
+
