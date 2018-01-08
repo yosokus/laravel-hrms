@@ -6,7 +6,7 @@
         </a>
     </li>
     <li class="{{ (isset($activeMenuDepartment) && $activeMenuDepartment) ? 'active' : '' }}">
-        <a href="#">
+        <a href="{{ route('department') }}">
             <i class="fa fa-cubes"></i>
             <span>Department</span>
         </a>

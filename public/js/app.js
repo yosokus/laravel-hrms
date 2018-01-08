@@ -963,7 +963,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-module.exports = __webpack_require__(42);
+__webpack_require__(42);
+module.exports = __webpack_require__(43);
 
 
 /***/ }),
@@ -43003,6 +43004,23 @@ if (false) {
 
 /***/ }),
 /* 42 */
+/***/ (function(module, exports) {
+
+
+$(document).on('click', '.delete-confirmation', function () {
+    if (!confirm('Are you sure you want to delete this item')) {
+        return false;
+    }
+});
+
+$(document).on('click', '.delete-all-confirmation', function () {
+    if (!confirm('Are you sure you want to delete this item and all its sub-items')) {
+        return false;
+    }
+});
+
+/***/ }),
+/* 43 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
