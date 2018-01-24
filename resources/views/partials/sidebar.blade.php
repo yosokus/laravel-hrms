@@ -18,7 +18,7 @@
         </a>
     </li>
     <li class="{{ (isset($activeMenuPosition) && $activeMenuPosition) ? 'active' : '' }}">
-        <a href="#">
+        <a href="{{ route('position') }}">
             <i class="fa fa-sitemap"></i>
             <span>Positions</span>
         </a>
