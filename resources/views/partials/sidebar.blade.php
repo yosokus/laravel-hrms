@@ -11,8 +11,8 @@
             <span>Department</span>
         </a>
     </li>
-    <li class="{{ (isset($activeMenuStaff) && $activeMenuStaff) ? 'active' : '' }}">
-        <a href="#">
+    <li class="{{ (isset($activeMenuEmployee) && $activeMenuEmployee) ? 'active' : '' }}">
+        <a href="{{ route('employee') }}">
             <i class="fa fa-group"></i>
             <span>Staff</span>
         </a>

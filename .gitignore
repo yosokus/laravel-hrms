@@ -13,3 +13,8 @@ yarn-error.log
 
 bootstrap/
 laradock/
+
+public/css/
+public/js/
+public/fonts/
+public/mix-manifest.json

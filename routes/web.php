@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth'], function () {
     // TODO fix route
     Route::any('department/create/{parent?}', 'DepartmentController@create');
     Route::any('position/create/{parent?}', 'PositionController@create');
+    Route::any('employee/create', 'EmployeeController@create');
 
     // Department
     Route::group(['prefix' => 'department'], function() {
@@ -35,11 +36,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'position'], function() {
         Route::any('', 'PositionController@index')->name('position');
         Route::get('{position}', 'PositionController@show')->name('position.show');
-        Route::get('/create/{parent?}', 'PositionController@create')->name('position.create');
+        Route::get('create/{parent?}', 'PositionController@create')->name('position.create');
         Route::post('store', 'PositionController@store')->name('position.store');
         Route::get('edit/{position}', 'PositionController@edit')->name('position.edit');
         Route::post('update', 'PositionController@update')->name('position.update');
         Route::delete('delete', 'PositionController@delete')->name('position.delete');
+    });
+
+    // Employee
+    Route::group(['prefix' => 'employee'], function() {
+        Route::any('', 'EmployeeController@index')->name('employee');
+        Route::get('{employee}', 'EmployeeController@show')->name('employee.show');
+        Route::get('create', 'EmployeeController@create')->name('employee.create');
+        Route::post('store', 'EmployeeController@store')->name('employee.store');
+        Route::get('edit/{employee}', 'EmployeeController@edit')->name('employee.edit');
+        Route::post('update/{employee}', 'EmployeeController@update')->name('employee.update');
+        Route::delete('delete/{employee}', 'EmployeeController@delete')->name('employee.delete');
     });
 });
 
