@@ -1,7 +1,3 @@
-<?php
-$department = isset($department) && !empty($department) ? $department : new RPSEMS\Models\Department();
-$selectedDepartment = old('parent_id', empty($parent) ? $department->parent_id : $parent->id);
-?>
 
 {{ csrf_field() }}
 <div class="form-group">
@@ -17,11 +13,8 @@ $selectedDepartment = old('parent_id', empty($parent) ? $department->parent_id :
         <select name="parent_id" class="form-control col-sm-7" id="parentId">
             <option value="">---</option>
             @foreach($departments as $parent)
-                <option value="{{ $parent->id }}" {{ $parent->id == $selectedDepartment ? 'selected="selected"' : '' }}>{{ $parent->name }}</option>
+                <option value="{{ $parent->id }}" {{ $parent->id == $selectedParent ? 'selected="selected"' : '' }}>{{ $parent->name }}</option>
             @endforeach
         </select>
     </div>
 </div>
-@if((int)$department->id)
-    <input type="hidden" name="id" value="{{ $department->id }}" />
-@endif

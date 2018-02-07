@@ -27,7 +27,11 @@ class EmployeeController extends AbstractController
         return view(
             $this->getView('index'),
             [
-                'employees' => Employee::orderBy('first_name')->orderBy('last_name')->get()
+                'employees' => Employee::with(['department:id,name', 'position:id,name', 'supervisor:id,first_name,last_name'])
+                    ->withCount('supervises')
+                    ->orderBy('first_name')
+                    ->orderBy('last_name')
+                    ->get()
             ]
         );
     }
@@ -112,7 +116,7 @@ class EmployeeController extends AbstractController
      *
      * @return RedirectResponse
      */
-    public function delete(Employee $employee)
+    public function destroy(Employee $employee)
     {
         $name = $employee->getName();
         $employee->delete();
@@ -221,7 +225,7 @@ class EmployeeController extends AbstractController
      */
     protected function getValidSupervisors($employee = null)
     {
-        $query = Employee::query()->orderBy('first_name')->orderBy('last_name');
+        $query = Employee::orderBy('first_name')->orderBy('last_name');
         if (is_object($employee) && $employeeId = (int)$employee->id) {
             $query->whereKeyNot($employeeId);
             $query->where(function ($supervisorQuery) use ($employeeId) {

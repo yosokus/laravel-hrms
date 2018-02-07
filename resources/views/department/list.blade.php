@@ -4,7 +4,7 @@
             <tr>
                 <th width="100px">#</th>
                 <th>Name</th>
-                <th># sub departments</th>
+                <th class="text-center"># sub departments</th>
                 <th class="action-column" width="350px">Action</th>
             </tr>
         </thead>
@@ -13,10 +13,10 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $department->name }}</td>
-                    <td>{{ $department->hasSubDepartments() }}</td>
+                    <td class="text-center"><span class="badge badge-info">{{ $department->sub_departments_count }}</span></td>
 
                     <td>
-                        <form class="delete-icon delete-record form-inline" id="{{ $department->id }}" action="{{ route('department.delete') }}" method="post">
+                        <form class="delete-icon delete-record form-inline" id="{{ $department->id }}" action="{{ route('department.destroy', ['department' => $department]) }}" method="post">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <input type="hidden" name="id" value="{{ $department->id }}">
@@ -28,7 +28,7 @@
                                         value="default">
                                     <i class="glyphicon glyphicon-trash"></i> Delete
                                 </button>
-                                @if ($department->hasSubDepartments())
+                                @if ($department->sub_departments_count)
                                     <button title="Delete All" class="btn btn-danger delete-all-confirmation"
                                             name="deleteType"
                                             value="all">
@@ -43,7 +43,7 @@
         </tbody>
     </table>
 @else
-    <p>No departments</p>
+    <p><a href="{{ route('department.create') }}">Create a department</a></p>
 @endif
 
 

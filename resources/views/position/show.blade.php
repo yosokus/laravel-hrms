@@ -8,7 +8,7 @@
         'title'=> 'Position: '  . $position->name,
         'addLink' => route('position.create', ['parent' => $position]),
         'editLink' => route('position.edit', ['position' => $position]),
-        'backLink' => (int)$position->parent_id ? route('position.show', ['position' => $position->parent_id]) : route('position'),
+        'backLink' => (int)$position->parent_id ? route('position.show', ['position' => $position->parent_id]) : route('position.index'),
     ]
 )
 

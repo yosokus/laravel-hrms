@@ -7,6 +7,7 @@
 @section('content')
     <form method="POST" action="{{ route('position.update', ['position' => $position]) }}" class="form-horizontal">
 
+        {{ method_field('PATCH') }}
         @include('position.form-fields')
 
         @include('partials.form-buttons', ['cancelLink' => route('position.show', ['position' => $position])])

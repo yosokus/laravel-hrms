@@ -4,7 +4,6 @@ namespace RPSEMS\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use RPSEMS\Models\Department;
@@ -27,7 +26,7 @@ class DepartmentController extends AbstractController
         return view(
             $this->getView('index'),
             [
-                'departments' => Department::where('parent_id', null)->orderBy('name')->get()
+                'departments' => Department::where('parent_id', null)->withCount('subDepartments')->orderBy('name')->get()
             ]
         );
     }
@@ -43,7 +42,7 @@ class DepartmentController extends AbstractController
             $this->getView('show'),
             [
                 'department' => $department,
-                'subDepartments' => $department->departments()->orderBy('name')->get()
+                'subDepartments' => $department->subDepartments()->withCount('subDepartments')->orderBy('name')->get()
             ]
         );
     }
@@ -57,10 +56,7 @@ class DepartmentController extends AbstractController
     {
         return view(
             $this->getView('create'),
-            [
-                'parent' => $parent,
-                'departments' => $this->getAllowedParents(),
-            ]
+            $this->getFormData(null, $parent)
         );
     }
 
@@ -90,7 +86,7 @@ class DepartmentController extends AbstractController
             $redirect = redirect()->action('DepartmentController@index');
         }
 
-        return $redirect->with('message', 'Department created');
+        return $redirect->with('message', 'Department ' . $department->name . ' created');
     }
 
     /**
@@ -102,31 +98,26 @@ class DepartmentController extends AbstractController
     {
         return view(
             $this->getView('edit'),
-            [
-                'department' => $department,
-                'departments' => $this->getAllowedParents($department),
-            ]
+            $this->getFormData($department)
         );
     }
 
     /**
      * @param Request $request
+     * @param Department $department
      *
      * @return RedirectResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, Department $department)
     {
-        $id = $request->get('id');
         /** @var \Illuminate\Contracts\Validation\Validator $validator */
         $validator = $this->validateForm($request);
         if ($validator->fails()) {
             return redirect()
-                ->action('DepartmentController@edit', ['department' => $id])
+                ->action('DepartmentController@edit', ['department' => $department->id])
                 ->withErrors($validator)->withInput();
         }
 
-        /** @var Department $department */
-        $department = Department::find($id);
         $oldPath = $department->path;
         $this->setData($department);
         $department->save();
@@ -138,19 +129,17 @@ class DepartmentController extends AbstractController
             }
         }
 
-        return redirect()->action('DepartmentController@show', ['id' => $department->id])->with('message',
-                'Department updated');
+        return redirect()->action('DepartmentController@show', ['id' => $department->id])
+            ->with('message', 'Department ' . $department->name . ' updated');
     }
 
     /**
+     * @param Department $department
+     *
      * @return RedirectResponse
      */
-    public function delete()
+    public function destroy(Department $department)
     {
-        $id = Input::get('id');
-        /** @var Department $department */
-        $department = Department::find($id);
-
         $path = $department->path;
         $name = $department->name;
         $table = $department->getTable();
@@ -161,9 +150,14 @@ class DepartmentController extends AbstractController
         $newPath = '';
         $msg = $name . ' department deleted!';
         if ($hasSubDepartments) {
-            if (Input::get('deleteType') == 'all') {
+            if (request('deleteType') == 'all') {
                 $affectedRows = $this->generalService->deleteAll($table, $path);
-                $msg = $name . ' department and all its ' . $affectedRows . ' sub departments were deleted!';
+                $msg = $name . ' department ';
+                if ($affectedRows > 1) {
+                    $msg .= 'and all it\'s ' . $affectedRows . ' sub departments were deleted!';
+                } else {
+                    $msg .= 'and it\'s sub department were deleted!';
+                }
             } else {
                 $this->generalService->updatePath($table, $path, $newPath);
             }
@@ -176,6 +170,24 @@ class DepartmentController extends AbstractController
         }
 
         return $redirect->with('message', $msg);
+    }
+
+    /**
+     * @param Department $department
+     * @param Department $parent
+     *
+     * @return array
+     */
+    protected function getFormData($department = null, $parent = null)
+    {
+        $departments = $this->getAllowedParents($department);
+        $department = $department ? $department : new Department();
+        return [
+            'parent' => $parent,
+            'department' => $department,
+            'departments' => $departments,
+            'selectedParent' => old('parent_id', empty($parent) ? $department->parent_id : $parent->id),
+        ];
     }
 
     /**
@@ -194,8 +206,8 @@ class DepartmentController extends AbstractController
     protected function setData(&$department)
     {
         $isNew = (int)$department->id ? false : true;
-        $department->name = Input::get('name');
-        $parentId = (int)Input::get('parent_id');
+        $department->name = request('name');
+        $parentId = (int)request('parent_id');
         $parentPath = '';
 
         if ($parentId) {
@@ -219,12 +231,10 @@ class DepartmentController extends AbstractController
      */
     protected function getAllowedParents($department = null)
     {
-        $query = Department::query()->orderBy('path');
-        if ($department) {
+        $query = Department::orderBy('path');
+        if (is_object($department) && $department->path) {
             $query->where('path', 'NOT LIKE', $department->path . '%');
         }
-        $departments = $query->get();
-
-        return $departments;
+        return $query->get();
     }
 }

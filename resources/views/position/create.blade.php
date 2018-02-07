@@ -8,6 +8,6 @@
     <form method="POST" action="{{ action('PositionController@store') }}" class="form-horizontal">
         @include('position.form-fields')
 
-        @include('partials.form-buttons', ['cancelLink' => !empty($parent) ? route('position.show', ['position' => $parent]) : route('position')])
+        @include('partials.form-buttons', ['cancelLink' => !empty($parent) ? route('position.show', ['position' => $parent]) : route('position.index')])
     </form>
 @endsection

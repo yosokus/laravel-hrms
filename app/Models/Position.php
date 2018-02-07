@@ -26,7 +26,7 @@ class Position extends Model
     /**
      * Get the sub-positions.
      */
-    public function positions()
+    public function subPositions()
     {
         return $this->hasMany('RPSEMS\Models\Position', 'parent_id');
     }
@@ -36,6 +36,14 @@ class Position extends Model
      */
     public function hasSubPositions()
     {
-        return $this->positions()->count();
+        return $this->subPositions()->count();
+    }
+
+    /**
+     * Get employees.
+     */
+    public function employees()
+    {
+        return $this->hasMany('RPSEMS\Models\Employee');
     }
 }

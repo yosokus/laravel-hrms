@@ -26,7 +26,7 @@ class Department extends Model
     /**
      * Get the sub-departments.
      */
-    public function departments()
+    public function subDepartments()
     {
         return $this->hasMany('RPSEMS\Models\Department', 'parent_id');
     }
@@ -36,6 +36,14 @@ class Department extends Model
      */
     public function hasSubDepartments()
     {
-        return $this->departments()->count();
+        return $this->subDepartments()->count();
+    }
+
+    /**
+     * Get department employees.
+     */
+    public function employees()
+    {
+        return $this->hasMany('RPSEMS\Models\Employee');
     }
 }

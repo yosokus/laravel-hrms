@@ -4,7 +4,6 @@ namespace RPSEMS\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use RPSEMS\Models\Position;
@@ -27,7 +26,7 @@ class PositionController extends AbstractController
         return view(
             $this->getView('index'),
             [
-                'positions' => Position::where('parent_id', null)->orderBy('name')->get()
+                'positions' => Position::where('parent_id', null)->withCount('subPositions')->orderBy('name')->get()
             ]
         );
     }
@@ -43,7 +42,7 @@ class PositionController extends AbstractController
             $this->getView('show'),
             [
                 'position' => $position,
-                'subPositions' => $position->positions()->orderBy('name')->get()
+                'subPositions' => $position->subPositions()->withCount('subPositions')->orderBy('name')->get()
             ]
         );
     }
@@ -57,10 +56,7 @@ class PositionController extends AbstractController
     {
         return view(
             $this->getView('create'),
-            [
-                'parent' => $parent,
-                'positions' => $this->getAllowedParents(),
-            ]
+            $this->getFormData(null, $parent)
         );
     }
 
@@ -90,7 +86,7 @@ class PositionController extends AbstractController
             $redirect = redirect()->action('PositionController@index');
         }
 
-        return $redirect->with('message', 'Position created');
+        return $redirect->with('message', 'Position ' . $position->name . ' created');
     }
 
     /**
@@ -102,31 +98,26 @@ class PositionController extends AbstractController
     {
         return view(
             $this->getView('edit'),
-            [
-                'position' => $position,
-                'positions' => $this->getAllowedParents($position),
-            ]
+            $this->getFormData($position)
         );
     }
 
     /**
      * @param Request $request
+     * @param Position $position
      *
      * @return RedirectResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, Position $position)
     {
-        $id = $request->get('id');
         /** @var \Illuminate\Contracts\Validation\Validator $validator */
         $validator = $this->validateForm($request);
         if ($validator->fails()) {
             return redirect()
-                ->action('PositionController@edit', ['position' => $id])
+                ->action('PositionController@edit', ['position' => $position->id])
                 ->withErrors($validator)->withInput();
         }
 
-        /** @var Position $position */
-        $position = Position::find($id);
         $oldPath = $position->path;
         $this->setData($position);
         $position->save();
@@ -139,18 +130,16 @@ class PositionController extends AbstractController
         }
 
         return redirect()->action('PositionController@show', ['id' => $position->id])
-            ->with('message', 'Position updated');
+            ->with('message', 'Position ' . $position->name . ' updated');
     }
 
     /**
+     * @param Position $position
+     *
      * @return RedirectResponse
      */
-    public function delete()
+    public function destroy(Position $position)
     {
-        $id = Input::get('id');
-        /** @var Position $position */
-        $position = Position::find($id);
-
         $path = $position->path;
         $name = $position->name;
         $table = $position->getTable();
@@ -161,9 +150,14 @@ class PositionController extends AbstractController
         $newPath = '';
         $msg = $name . ' position deleted!';
         if ($hasSubPositions) {
-            if (Input::get('deleteType') == 'all') {
+            if (request('deleteType') == 'all') {
                 $affectedRows = $this->generalService->deleteAll($table, $path);
-                $msg = $name . ' position and all its ' . $affectedRows . ' sub positions were deleted!';
+                $msg = $name . ' position ';
+                if ($affectedRows > 1) {
+                    $msg .= 'and all it\'s ' . $affectedRows . ' sub positions were deleted!';
+                } else {
+                    $msg .= 'and it\'s sub position were deleted!';
+                }
             } else {
                 $this->generalService->updatePath($table, $path, $newPath);
             }
@@ -176,6 +170,24 @@ class PositionController extends AbstractController
         }
 
         return $redirect->with('message', $msg);
+    }
+
+    /**
+     * @param Position $position
+     * @param Position $parent
+     *
+     * @return array
+     */
+    protected function getFormData($position = null, $parent = null)
+    {
+        $positions = $this->getAllowedParents($position);
+        $position = $position ? $position : new Position();
+        return [
+            'parent' => $parent,
+            'position' => $position,
+            'positions' => $positions,
+            'selectedParent' => old('parent_id', empty($parent) ? $position->parent_id : $parent->id),
+        ];
     }
 
     /**
@@ -194,8 +206,8 @@ class PositionController extends AbstractController
     protected function setData(&$position)
     {
         $isNew = (int)$position->id ? false : true;
-        $position->name = Input::get('name');
-        $parentId = (int)Input::get('parent_id');
+        $position->name = request('name');
+        $parentId = (int)request('parent_id');
         $parentPath = '';
 
         if ($parentId) {
@@ -219,12 +231,10 @@ class PositionController extends AbstractController
      */
     protected function getAllowedParents($position = null)
     {
-        $query = Position::query()->orderBy('path');
-        if ($position) {
+        $query = Position::orderBy('path');
+        if (is_object($position) && $position->path) {
             $query->where('path', 'NOT LIKE', $position->path . '%');
         }
-        $positions = $query->get();
-
-        return $positions;
+        return $query->get();
     }
 }

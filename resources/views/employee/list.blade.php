@@ -7,7 +7,7 @@
                 <th>Department</th>
                 <th>Position</th>
                 <th>Supervisor</th>
-                <th>Supervised</th>
+                <th class="text-center">#Supervised</th>
                 <th class="action-column" width="250px">Action</th>
             </tr>
         </thead>
@@ -34,14 +34,16 @@
                     </td>
                     <td>
                         @if ($employee->supervisor)
-                            <a href="{{ route('employee.show', ['employee' => $employee]) }}">{{ $employee->supervisor->name }}</a>
+                            <a href="{{ route('employee.show', ['employee' => $employee->supervisor->id]) }}">
+                                {{ trim($employee->supervisor->first_name . ' ' . $employee->supervisor->last_name) }}
+                            </a>
                         @else
                             &nbsp;
                         @endif
                     </td>
-                    <td><span class="badge badge-info">{{ $employee->isSupervisor() }}</span></td>
+                    <td class="text-center"><span class="badge badge-info">{{ $employee->supervises_count }}</span></td>
                     <td>
-                        <form class="delete-icon delete-record form-inline" id="{{ $employee->id }}" action="{{ route('employee.delete', ['employee' => $employee]) }}" method="post">
+                        <form class="delete-icon delete-record form-inline" id="{{ $employee->id }}" action="{{ route('employee.destroy', ['employee' => $employee]) }}" method="post">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <div class="btn-group">

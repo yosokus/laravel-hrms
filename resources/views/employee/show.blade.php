@@ -7,7 +7,7 @@
     [
         'title'=> 'Employee: '  . $employee->getName(),
         'editLink' => route('employee.edit', ['employee' => $employee]),
-        'backLink' => route('employee'),
+        'backLink' => route('employee.index'),
     ]
 )
 

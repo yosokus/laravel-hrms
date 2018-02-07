@@ -6,19 +6,19 @@
         </a>
     </li>
     <li class="{{ (isset($activeMenuDepartment) && $activeMenuDepartment) ? 'active' : '' }}">
-        <a href="{{ route('department') }}">
+        <a href="{{ route('department.index') }}">
             <i class="fa fa-cubes"></i>
             <span>Department</span>
         </a>
     </li>
     <li class="{{ (isset($activeMenuEmployee) && $activeMenuEmployee) ? 'active' : '' }}">
-        <a href="{{ route('employee') }}">
+        <a href="{{ route('employee.index') }}">
             <i class="fa fa-group"></i>
             <span>Staff</span>
         </a>
     </li>
     <li class="{{ (isset($activeMenuPosition) && $activeMenuPosition) ? 'active' : '' }}">
-        <a href="{{ route('position') }}">
+        <a href="{{ route('position.index') }}">
             <i class="fa fa-sitemap"></i>
             <span>Positions</span>
         </a>
