@@ -171,11 +171,11 @@ return [
         /*
          * Application Service Providers...
          */
-        RPSEMS\Providers\AppServiceProvider::class,
-        RPSEMS\Providers\AuthServiceProvider::class,
-        // RPSEMS\Providers\BroadcastServiceProvider::class,
-        RPSEMS\Providers\EventServiceProvider::class,
-        RPSEMS\Providers\RouteServiceProvider::class,
+        RPSHRMS\Providers\AppServiceProvider::class,
+        RPSHRMS\Providers\AuthServiceProvider::class,
+        // RPSHRMS\Providers\BroadcastServiceProvider::class,
+        RPSHRMS\Providers\EventServiceProvider::class,
+        RPSHRMS\Providers\RouteServiceProvider::class,
 
     ],
 

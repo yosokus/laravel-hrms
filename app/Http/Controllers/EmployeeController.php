@@ -1,14 +1,14 @@
 <?php
 
-namespace RPSEMS\Http\Controllers;
+namespace RPSHRMS\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
-use RPSEMS\Models\Employee;
-use RPSEMS\Models\Department;
-use RPSEMS\Models\Position;
+use RPSHRMS\Models\Employee;
+use RPSHRMS\Models\Department;
+use RPSHRMS\Models\Position;
 
 class EmployeeController extends AbstractController
 {
@@ -23,7 +23,8 @@ class EmployeeController extends AbstractController
     /**
      * @return View
      */
-    public function index() {
+    public function index()
+    {
         return view(
             $this->getView('index'),
             [
@@ -40,7 +41,8 @@ class EmployeeController extends AbstractController
      * @param Employee $employee
      * @return View
      */
-    public function show(Employee $employee) {
+    public function show(Employee $employee)
+    {
         return view(
             $this->getView('show'),
             [
@@ -52,7 +54,8 @@ class EmployeeController extends AbstractController
     /**
      * @return View
      */
-    public function create() {
+    public function create()
+    {
         return view(
             $this->getView('create'),
             $this->getFormData()
@@ -64,7 +67,8 @@ class EmployeeController extends AbstractController
      *
      * @return RedirectResponse
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         /** @var \Illuminate\Contracts\Validation\Validator $validator */
         $validator = $this->validateForm($request);
         if ($validator->fails()) {
@@ -161,7 +165,8 @@ class EmployeeController extends AbstractController
      *
      * @return mixed
      */
-    protected function validateForm($request) {
+    protected function validateForm($request)
+    {
         $dateFormat = config('appSettings.date.phpFormat');
         $rules = array(
             'first_name' => 'required',

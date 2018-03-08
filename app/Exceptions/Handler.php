@@ -1,6 +1,6 @@
 <?php
 
-namespace RPSEMS\Exceptions;
+namespace RPSHRMS\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

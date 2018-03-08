@@ -22,7 +22,7 @@
             "database/factories"
         ],
         "psr-4": {
-            "RPSEMS\\": "app/"
+            "RPSHRMS\\": "app/"
         }
     },
     "autoload-dev": {

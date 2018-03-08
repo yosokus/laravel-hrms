@@ -1,6 +1,6 @@
 <?php
 
-namespace RPSEMS\Http\Middleware;
+namespace RPSHRMS\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

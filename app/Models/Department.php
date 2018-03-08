@@ -1,6 +1,6 @@
 <?php
 
-namespace RPSEMS\Models;
+namespace RPSHRMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -20,7 +20,7 @@ class Department extends Model
      */
     public function parent()
     {
-        return $this->belongsTo('RPSEMS\Models\Department', 'parent_id');
+        return $this->belongsTo('RPSHRMS\Models\Department', 'parent_id');
     }
 
     /**
@@ -28,7 +28,7 @@ class Department extends Model
      */
     public function subDepartments()
     {
-        return $this->hasMany('RPSEMS\Models\Department', 'parent_id');
+        return $this->hasMany('RPSHRMS\Models\Department', 'parent_id');
     }
 
     /**
@@ -44,6 +44,6 @@ class Department extends Model
      */
     public function employees()
     {
-        return $this->hasMany('RPSEMS\Models\Employee');
+        return $this->hasMany('RPSHRMS\Models\Employee');
     }
 }

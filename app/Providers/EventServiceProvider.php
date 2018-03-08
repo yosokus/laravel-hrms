@@ -1,6 +1,6 @@
 <?php
 
-namespace RPSEMS\Providers;
+namespace RPSHRMS\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'RPSEMS\Events\Event' => [
-            'RPSEMS\Listeners\EventListener',
+        'RPSHRMS\Events\Event' => [
+            'RPSHRMS\Listeners\EventListener',
         ],
     ];
 

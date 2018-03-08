@@ -1,6 +1,6 @@
 <?php
 
-namespace RPSEMS\ModelS;
+namespace RPSHRMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,7 +37,7 @@ class Employee extends Model
      */
     public function supervisor()
     {
-        return $this->belongsTo('RPSEMS\Models\Employee', 'supervisor_id');
+        return $this->belongsTo('RPSHRMS\Models\Employee', 'supervisor_id');
     }
 
     /**
@@ -45,7 +45,7 @@ class Employee extends Model
      */
     public function supervises()
     {
-        return $this->hasMany('RPSEMS\Models\Employee', 'supervisor_id');
+        return $this->hasMany('RPSHRMS\Models\Employee', 'supervisor_id');
     }
 
     /**
@@ -61,7 +61,7 @@ class Employee extends Model
      */
     public function department()
     {
-        return $this->belongsTo('RPSEMS\Models\Department');
+        return $this->belongsTo('RPSHRMS\Models\Department');
     }
 
     /**
@@ -69,7 +69,7 @@ class Employee extends Model
      */
     public function position()
     {
-        return $this->belongsTo('RPSEMS\Models\Position');
+        return $this->belongsTo('RPSHRMS\Models\Position');
     }
 
     /**

@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => RPSEMS\Models\User::class,
+        'model' => RPSHRMS\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

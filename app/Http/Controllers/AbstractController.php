@@ -1,8 +1,8 @@
 <?php
 
-namespace RPSEMS\Http\Controllers;
+namespace RPSHRMS\Http\Controllers;
 
-use RPSEMS\Services\GeneralService;
+use RPSHRMS\Services\GeneralService;
 
 abstract class AbstractController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace RPSEMS\Services;
+namespace RPSHRMS\Services;
 
 use Illuminate\Support\Facades\DB;
 

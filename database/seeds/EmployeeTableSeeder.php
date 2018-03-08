@@ -2,16 +2,17 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use RPSEMS\Models\Employee;
-use RPSEMS\Models\Department;
-use RPSEMS\Models\Position;
+use RPSHRMS\Models\Employee;
+use RPSHRMS\Models\Department;
+use RPSHRMS\Models\Position;
 
 class EmployeeTableSeeder extends Seeder {
 
     /**
      * @return void
      */
-    public function run() {
+    public function run()
+    {
         $config = config('appSeeder');
         $demoUsers = (int)$config['sampleData']['employee'];
         $maritalStatusOptions = array_keys(Employee::maritalStatusOptions());

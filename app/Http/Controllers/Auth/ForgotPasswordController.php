@@ -1,8 +1,8 @@
 <?php
 
-namespace RPSEMS\Http\Controllers\Auth;
+namespace RPSHRMS\Http\Controllers\Auth;
 
-use RPSEMS\Http\Controllers\Controller;
+use RPSHRMS\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller

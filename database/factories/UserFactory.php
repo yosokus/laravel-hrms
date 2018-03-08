@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(RPSEMS\Models\User::class, function (Faker $faker) {
+$factory->define(RPSHRMS\Models\User::class, function (Faker $faker) {
     static $password;
 
     return [
