@@ -19,6 +19,10 @@ $(".date-picker").bootstrapDP({
     autoclose: true
 });
 
+$('.tree-select').each(function() {
+    $(this).treeselect();
+});
+
 function formatDate(value, format, displayFormat) {
     if (! isUndefined(value) || value == '') {
         return '';

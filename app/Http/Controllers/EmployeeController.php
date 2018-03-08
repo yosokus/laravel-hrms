@@ -138,8 +138,8 @@ class EmployeeController extends AbstractController
         return [
             'employee' => $employee,
             'employees' => $this->getValidSupervisors($employee),
-            'departments' => Department::orderBy('path')->get(),
-            'positions' => Position::orderBy('path')->get(),
+            'departments' => Department::orderBy('name')->get(),
+            'positions' => Position::orderBy('name')->get(),
             'genderOptions' => $employee->getGenderOptions(true),
             'maritalStatusOptions' => $employee->getMaritalStatusOptions(true),
 

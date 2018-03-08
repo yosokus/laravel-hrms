@@ -72,7 +72,7 @@
     <label for="supervisorId" class="col-sm-3 control-label">Supervisor</label>
     <div class="col-sm-7">
         <select name="supervisor_id" class="form-control col-sm-7" id="supervisorId">
-            <option value="">---</option>
+            <option value="">- Select Supervisor -</option>
             @foreach($employees as $supervisor)
                 <option value="{{ $supervisor->id }}" {{ $supervisor->id == $selectedSupervisor ? 'selected="selected"' : '' }}>{{ $supervisor->getName() }}</option>
             @endforeach
@@ -82,10 +82,10 @@
 <div class="form-group">
     <label for="departmentId" class="col-sm-3 control-label">Deparment</label>
     <div class="col-sm-7">
-        <select name="department_id" class="form-control col-sm-7" id="departmentId">
-            <option value="">---</option>
+        <select name="department_id" class="form-control col-sm-7 tree-select" id="departmentId" data-placeholder="- Select Department -">
+            <option value="">- Select Department -</option>
             @foreach($departments as $department)
-                <option value="{{ $department->id }}" {{ $department->id == $selectedDepartment ? 'selected="selected"' : '' }}>{{ $department->name }}</option>
+                <option value="{{ $department->id }}" {{ $department->id == $selectedDepartment ? 'selected="selected"' : '' }} {{ $department->parent_id ? 'data-parent=' . $department->parent_id : '' }}>{{ $department->name }}</option>
             @endforeach
         </select>
     </div>
@@ -93,10 +93,10 @@
 <div class="form-group">
     <label for="positionId" class="col-sm-3 control-label">Position</label>
     <div class="col-sm-7">
-        <select name="position_id" class="form-control col-sm-7" id="positionId">
-            <option value="">---</option>
+        <select name="position_id" class="form-control col-sm-7 tree-select" id="positionId" data-placeholder="- Select Position -">
+            <option value="">- Select Position -</option>
             @foreach($positions as $position)
-                <option value="{{ $position->id }}" {{ $position->id == $selectedPosition ? 'selected="selected"' : '' }}>{{ $position->name }}</option>
+                <option value="{{ $position->id }}" {{ $position->id == $selectedPosition ? 'selected="selected"' : '' }} {{ $position->parent_id ? 'data-parent=' . $position->parent_id : '' }}>{{ $position->name }}</option>
             @endforeach
         </select>
     </div>

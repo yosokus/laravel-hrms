@@ -231,7 +231,7 @@ class DepartmentController extends AbstractController
      */
     protected function getAllowedParents($department = null)
     {
-        $query = Department::orderBy('path');
+        $query = Department::orderBy('name');
         if (is_object($department) && $department->path) {
             $query->where('path', 'NOT LIKE', $department->path . '%');
         }

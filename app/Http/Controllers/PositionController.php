@@ -231,7 +231,7 @@ class PositionController extends AbstractController
      */
     protected function getAllowedParents($position = null)
     {
-        $query = Position::orderBy('path');
+        $query = Position::orderBy('name');
         if (is_object($position) && $position->path) {
             $query->where('path', 'NOT LIKE', $position->path . '%');
         }

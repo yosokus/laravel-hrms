@@ -16,6 +16,7 @@ mix.js(
          'resources/assets/js/app.js',
          'node_modules/moment/moment.js',
          'node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
+         'resources/assets/js/jquery.bootstrap.treeselect.js',
          'resources/assets/js/custom.js'
     ],
     'public/js/app.js'
