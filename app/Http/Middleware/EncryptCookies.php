@@ -1,6 +1,6 @@
 <?php
 
-namespace RPSEMS\Http\Middleware;
+namespace RPSHRMS\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 

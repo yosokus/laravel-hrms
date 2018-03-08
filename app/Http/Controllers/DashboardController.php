@@ -1,6 +1,6 @@
 <?php
 
-namespace RPSEMS\Http\Controllers;
+namespace RPSHRMS\Http\Controllers;
 
 use Illuminate\Http\Response;
 

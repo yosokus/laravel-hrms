@@ -1,6 +1,6 @@
 <?php
 
-namespace RPSEMS\Http\Middleware;
+namespace RPSHRMS\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 

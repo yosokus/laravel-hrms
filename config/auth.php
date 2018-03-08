@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => RPSEMS\User::class,
+            'model' => RPSHRMS\Models\User::class,
         ],
 
         // 'users' => [

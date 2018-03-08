@@ -1,9 +1,9 @@
 <?php
 
-namespace RPSEMS\Http\Controllers\Auth;
+namespace RPSHRMS\Http\Controllers\Auth;
 
-use RPSEMS\User;
-use RPSEMS\Http\Controllers\Controller;
+use RPSHRMS\Models\User;
+use RPSHRMS\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -58,7 +58,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \RPSEMS\User
+     * @return \RPSHRMS\Models\User
      */
     protected function create(array $data)
     {

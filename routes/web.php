@@ -15,4 +15,15 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'DashboardController@index')->name('home');
+
+    Route::resources([
+        'department' => 'DepartmentController',
+        'position' => 'PositionController',
+        'employee' => 'EmployeeController',
+    ]);
+
+    // Override resource create route
+    Route::any('department/create/{parent?}', 'DepartmentController@create')->name('department.create');
+    Route::any('position/create/{parent?}', 'PositionController@create')->name('position.create');
 });
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace RPSEMS\Providers;
+namespace RPSHRMS\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -11,5 +11,20 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix.js(
+    [
+         'resources/assets/js/app.js',
+         'node_modules/moment/moment.js',
+         'node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
+         'resources/assets/js/jquery.bootstrap.treeselect.js',
+         'resources/assets/js/custom.js'
+    ],
+    'public/js/app.js'
+  )
+  .sass('resources/assets/sass/app.scss', 'public/css')
+  .styles(
+      [
+        'node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css'
+      ],
+      'public/css/lib.css'
+  );
